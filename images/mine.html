@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Valentine's Magic Proposal ✨</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #ff9a9e 0%, #fad0c4 50%, #fecfef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* floating hearts animation (original charm) */
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            pointer-events: none;
+            z-index: 0;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: floatUpLove linear infinite;
+        }
+
+        @keyframes floatUpLove {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-120vh) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        /* main glassmorphic card */
+        .proposal-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 248, 245, 0.35);
+            backdrop-filter: blur(18px);
+            border-radius: 55px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 4px rgba(255, 80, 120, 0.3);
+            padding: 2rem 2rem 2.5rem;
+            width: 90%;
+            max-width: 550px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .bear-icon {
+            font-size: 75px;
+            filter: drop-shadow(2px 6px 12px rgba(0, 0, 0, 0.2));
+            animation: bounceGentle 1.2s infinite ease;
+        }
+
+        @keyframes bounceGentle {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #a1223a;
+            text-shadow: 2px 2px 0 rgba(255, 215, 215, 0.8);
+            margin: 12px 0 8px;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            font-weight: 500;
+            background: rgba(255, 245, 240, 0.7);
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            color: #b13b4b;
+            margin: 12px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 35px;
+            justify-content: center;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 240, 0.9);
+            padding: 12px 32px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        #yesBtn {
+            background: rgba(255, 80, 120, 0.8);
+            color: white;
+            border-color: #fff0f0;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 60, 100, 0.95);
+            box-shadow: 0 8px 18px rgba(220, 40, 80, 0.4);
+        }
+
+        #noBtn {
+            background: rgba(210, 180, 170, 0.6);
+            color: #7a2e3a;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        /* PHOTO MODAL — smooth animation with romantic second photo */
+        .photo-reveal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(14px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+        }
+
+        .photo-reveal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .photo-card {
+            background: linear-gradient(135deg, #fff9f5, #ffeef2);
+            max-width: 92%;
+            width: 480px;
+            border-radius: 60px;
+            padding: 28px 22px 35px;
+            text-align: center;
+            box-shadow: 0 35px 50px rgba(0, 0, 0, 0.4), 0 0 0 8px #ffb7c5;
+            transform: scale(0.7) rotate(-6deg);
+            transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.55, 1), rotate 0.4s;
+            transition-delay: 0.05s;
+        }
+
+        .active .photo-card {
+            transform: scale(1) rotate(0deg);
+        }
+
+        .photo-header {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #c71f4e;
+            background: rgba(255, 215, 215, 0.8);
+            display: inline-block;
+            padding: 0 24px;
+            border-radius: 70px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .image-frame {
+            margin: 15px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 28px rgba(0, 0, 0, 0.25);
+            border: 4px solid white;
+            transition: all 0.3s;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cute-photo {
+            max-width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .photo-card:hover .cute-photo {
+            transform: scale(1.02);
+        }
+
+        .romantic-message {
+            font-size: 1.12rem;
+            background: rgba(255, 235, 225, 0.95);
+            padding: 12px;
+            border-radius: 45px;
+            margin-top: 18px;
+            font-weight: 500;
+            color: #9b2e46;
+            box-shadow: inset 0 0 3px #ffb7b7;
+        }
+
+        .close-photo-btn {
+            background: #ff8da1;
+            border: none;
+            margin-top: 20px;
+            padding: 8px 28px;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-photo-btn:hover {
+            background: #e05f7a;
+            transform: scale(0.96);
+        }
+
+        /* celebration panel for YES */
+        .celebration-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 180, 190, 0.95), rgba(255, 80, 100, 0.95));
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .celebration-panel.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .celeb-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 100%);
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            animation: liquidMorphBox 6s ease-in-out infinite;
+            padding: 60px 40px;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+            max-width: 500px;
+            width: 85%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15),
+                inset 0 0 25px rgba(255, 255, 255, 0.6),
+                inset 0 0 50px rgba(255, 200, 220, 0.4);
+            position: relative;
+        }
+
+        @keyframes liquidMorphBox {
+            0% {
+                border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+            }
+
+            33% {
+                border-radius: 60% 40% 50% 50% / 45% 55% 45% 55%;
+            }
+
+            66% {
+                border-radius: 45% 55% 45% 55% / 55% 45% 55% 45%;
+            }
+
+            100% {
+                border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+            }
+        }
+
+        .active .celeb-content {
+            transform: scale(1);
+        }
+
+        .yay-text {
+            font-size: 4rem;
+            font-weight: bold;
+            font-family: 'Dancing Script', cursive;
+            animation: pulseGlow 1s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                text-shadow: 0 0 0 #ffb3c6;
+                transform: scale(1);
+            }
+
+            50% {
+                text-shadow: 0 0 22px #ff4d6d;
+                transform: scale(1.05);
+            }
+        }
+
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 18px;
+            background: gold;
+            opacity: 0.9;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* mobile friendly */
+        @media (max-width: 550px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .glass-btn {
+                padding: 8px 20px;
+                font-size: 1.1rem;
+            }
+
+            .photo-header {
+                font-size: 1.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- main proposal card -->
+    <div class="proposal-card" id="proposalCard">
+        <div class="bear-icon">🧸💗</div>
+        <h1>Will You Be My ACHAA BACHAA, JANUU ?</h1>
+        <div class="subtitle">✨ હોઠે કઈ નથી, પણ આંખોમાં બધું જ દેખાય છે ✨</div>
+        <div class="button-group">
+            <button class="glass-btn" id="yesBtn">Yes ❤️</button>
+            <button class="glass-btn" id="noBtn">No 🥺</button>
+        </div>
+    </div>
+
+    <!-- PHOTO REVEAL MODAL - beautiful second photo with smooth animation & heading (appears on No click) -->
+    <div id="photoModal" class="photo-reveal-overlay">
+        <div class="photo-card">
+            <div class="photo-header">🌸 Tu Mera Sapna 🌸</div>
+            <div class="image-frame">
+                <!-- Romantic illustration: a beautiful sunset couple moment with heart and stars, feels like a memory photo -->
+                <!-- IMAGE PLACEHOLDER (YOU CAN CHANGE THIS) -->
+                <img class="cute-photo" id="photo1" src="your-photo1.jpg.jpeg" alt="Romantic Photo">
+
+                <!-- HOW TO USE:
+                Replace 'your-photo1.jpg' with your image file name
+                Example:
+                src="myphoto.jpg"
+                You can put any JPG/PNG in same folder
+                -->
+            </div>
+            <div class="romantic-message">
+                💕 “તારી એક ઝલક, મારી આંખોની ચમક... તું ના કહીશ તોયે હું માનીશ હા જ.” 💕
+            </div>
+            <button class="close-photo-btn" id="closePhotoBtn">💖 Wapas Lautein 💖</button>
+        </div>
+    </div>
+
+    <!-- Celebration panel for Yes button -->
+    <div id="celebrationPanel" class="celebration-panel">
+        <div class="celeb-content">
+            <div class="yay-text">Yayyyy!! 🎉</div>
+            <p style="font-size: 1.35rem; font-weight: 600; margin-top: 20px;">મારી જિંદગીનો બેસ્ટ મોમેન્ટ
+                ❤️</p>
+            <p style="margin-top: 12px;">I love you, My Januu! You made my world 🧸💗</p>
+        </div>
+    </div>
+
+    <script>
+        // ---------- FLOATING HEARTS (original ambiance) ----------
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            const heartsArray = ['❤️', '💖', '💕', '💗', '🌸', '🧸', '💘'];
+            heart.innerHTML = heartsArray[Math.floor(Math.random() * heartsArray.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 28 + 16) + 'px';
+            heart.style.animationDuration = (Math.random() * 5 + 4) + 's';
+            heart.style.opacity = Math.random() * 0.6 + 0.3;
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+        setInterval(createFloatingHeart, 380);
+
+        // -------- "NO" BUTTON: Original moving effect (ghumata rehta tha) + Photo reveal with smooth animation --------
+        const noBtn = document.getElementById('noBtn');
+        const photoModal = document.getElementById('photoModal');
+
+        // OPTIONAL: MULTIPLE PHOTOS SYSTEM
+        const photos = [
+            "your-photo1.jpg.jpeg",
+            "your-photo2.jpg.jpeg",
+            "your-photo3.jpg.jpeg",
+            "your-photo4.jpg.jpeg"
+        ];
+        let photoIndex = 0;
+        const closePhotoBtn = document.getElementById('closePhotoBtn');
+
+        // Function to show the romantic photo with smooth animation
+        function showPhotoWithSmoothAnimation() {
+            // change photo every time
+            const img = document.getElementById('photo1');
+            if (img) {
+                img.src = photos[photoIndex % photos.length];
+                photoIndex++;
+            }
+            document.body.style.overflow = 'hidden';
+            photoModal.classList.add('active');
+            // extra flair: scale pop for inner card
+            const innerCard = document.querySelector('.photo-card');
+            if (innerCard) {
+                innerCard.style.transform = 'scale(0.92) rotate(-1deg)';
+                setTimeout(() => {
+                    if (innerCard) innerCard.style.transform = '';
+                }, 150);
+            }
+        }
+
+        function hidePhotoModal() {
+            photoModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        closePhotoBtn.addEventListener('click', hidePhotoModal);
+        photoModal.addEventListener('click', (e) => {
+            if (e.target === photoModal) hidePhotoModal();
+        });
+
+        // ---- CORE: "No" button original moving behavior (ghoomna) + photo reveal on every click ----
+        // We preserve the classic dodging effect: each time you click "No", it moves randomly AND shows the romantic photo.
+        // And it keeps moving forever exactly like original effect.
+
+        // Variable to store if button is already moving? We'll apply random positioning each click without interfering with photo.
+        // Original logic: no.onclick = () => { no.style.position='fixed'; no.style.left=Math.random()*90+'vw'; no.style.top=Math.random()*90+'vh'; }
+        // We enhance: same movement, plus beautiful photo reveal, plus additional playful text changes, but photo shows each time no is clicked.
+
+        // For smoothness: reset any inline style conflict but keep moving
+        let noMoveActive = true;
+
+        function moveNoButtonRandomly() {
+            if (!noMoveActive) return;
+            const btnRect = noBtn.getBoundingClientRect();
+            const maxX = window.innerWidth - btnRect.width - 20;
+            const maxY = window.innerHeight - btnRect.height - 20;
+            let randX = Math.random() * (maxX - 50) + 20;
+            let randY = Math.random() * (maxY - 50) + 20;
+            randX = Math.min(Math.max(randX, 8), maxX);
+            randY = Math.min(Math.max(randY, 8), maxY);
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randX + 'px';
+            noBtn.style.top = randY + 'px';
+            noBtn.style.zIndex = '999';
+            // add a little shake effect to movement
+            noBtn.style.transition = 'left 0.25s cubic-bezier(0.2, 1.2, 0.4, 1), top 0.25s cubic-bezier(0.2, 1.2, 0.4, 1)';
+            setTimeout(() => {
+                if (noBtn) noBtn.style.transition = '';
+            }, 280);
+        }
+
+        // Also ensure no button stays within view on window resize
+        window.addEventListener('resize', () => {
+            if (noBtn.style.position === 'fixed') {
+                const rect = noBtn.getBoundingClientRect();
+                const maxX = window.innerWidth - rect.width - 15;
+                const maxY = window.innerHeight - rect.height - 15;
+                let leftVal = parseFloat(noBtn.style.left);
+                let topVal = parseFloat(noBtn.style.top);
+                if (leftVal > maxX) noBtn.style.left = Math.max(5, maxX) + 'px';
+                if (topVal > maxY) noBtn.style.top = Math.max(5, maxY) + 'px';
+                if (leftVal < 0) noBtn.style.left = '10px';
+                if (topVal < 0) noBtn.style.top = '10px';
+            }
+        });
+
+        // No button click: original ghumo wala effect + PHOTO REVEAL (with heading and second photo)
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // 1. Show the beautiful romantic photo modal (smooth animation)
+            showPhotoWithSmoothAnimation();
+
+            // 2. Original moving effect: random position like classic version
+            moveNoButtonRandomly();
+
+            // 3. Extra playful text change on no button (without losing original charm)
+            const originalText = noBtn.innerHTML;
+            noBtn.innerHTML = '🥺 Ruko...';
+            setTimeout(() => {
+                if (noBtn && document.getElementById('proposalCard')) {
+                    noBtn.innerHTML = 'No 🥺';
+                }
+            }, 800);
+
+            // 4. additional tiny bounce to enhance moving feel
+            noBtn.style.transform = 'scale(0.97)';
+            setTimeout(() => {
+                if (noBtn) noBtn.style.transform = '';
+            }, 150);
+        });
+
+        // Additionally to mimic original effect, when mouse hovers over No button also move? Not needed but cute. But original just moves on click.
+        // However to be more playful: after photo closed, the no button remains wherever it moved and continues moving on each click.
+        // No conflict. Perfect.
+
+        // ---- YES BUTTON: Celebration + Confetti + Hide Main Card ----
+        const yesBtn = document.getElementById('yesBtn');
+        const proposalCard = document.getElementById('proposalCard');
+        const celebrationPanel = document.getElementById('celebrationPanel');
+
+        function generateConfetti() {
+            const colorsList = ['#ff4d6d', '#ffb347', '#ff6f91', '#f4d03f', '#9b59b6', '#2ecc71', '#e84393'];
+            for (let i = 0; i < 220; i++) {
+                const conf = document.createElement('div');
+                conf.classList.add('confetti-piece');
+                conf.style.background = colorsList[Math.floor(Math.random() * colorsList.length)];
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.width = (Math.random() * 12 + 5) + 'px';
+                conf.style.height = (Math.random() * 14 + 6) + 'px';
+                conf.style.top = '-25px';
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '3px';
+                conf.style.animation = `confettiFall ${Math.random() * 3 + 2.2}s linear forwards`;
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 5500);
+            }
+        }
+
+        yesBtn.addEventListener('click', () => {
+            // hide main proposal card
+            proposalCard.style.display = 'none';
+            // show celebration panel
+            celebrationPanel.classList.add('active');
+            generateConfetti();
+
+            // burst of floating hearts immediately
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const happyHeart = document.createElement('div');
+                    happyHeart.innerHTML = '💖';
+                    happyHeart.style.position = 'fixed';
+                    happyHeart.style.left = Math.random() * 100 + 'vw';
+                    happyHeart.style.bottom = '-30px';
+                    happyHeart.style.fontSize = (Math.random() * 40 + 24) + 'px';
+                    happyHeart.style.animation = 'floatUpLove 1.6s ease-out forwards';
+                    happyHeart.style.pointerEvents = 'none';
+                    happyHeart.style.zIndex = '1000';
+                    document.body.appendChild(happyHeart);
+                    setTimeout(() => happyHeart.remove(), 2000);
+                }, i * 25);
+            }
+
+            // also remove any no button floating if needed, but keep it hidden because card gone
+            if (noBtn) noBtn.style.display = 'none';
+        });
+
+        // ensure initial no button position is not fixed, it's relative inside flex but after first click it will become fixed.
+        // Original style: no button remains inside container until click, then becomes fixed. Classic effect preserved.
+        // Additionally, when user closes photo modal, the no button stays at moved position - exactly like original effect.
+        // We also add some extra small feature to reset no button text if needed.
+
+        // For users who spam No: photo modal appears each time, but we don't want multiple overlays stacking - fine because modal only one active, same modal reopens.
+        // If modal is already active, we don't open duplicate. So check before opening:
+        const originalShowPhoto = showPhotoWithSmoothAnimation;
+        window.showPhotoWithSmoothAnimation = function () {
+            if (photoModal.classList.contains('active')) {
+                // just bounce effect to remind
+                const modalCard = document.querySelector('.photo-card');
+                if (modalCard) {
+                    modalCard.style.transform = 'scale(1.02)';
+                    setTimeout(() => { if (modalCard) modalCard.style.transform = ''; }, 200);
+                }
+                return;
+            }
+            originalShowPhoto();
+        };
+        showPhotoWithSmoothAnimation = window.showPhotoWithSmoothAnimation;
+
+        // replace function to avoid double modal
+        photoModal.addEventListener('click', (e) => { if (e.target === photoModal) hidePhotoModal(); });
+
+        // final check: ensure the "No" button moves randomly each click exactly like earlier effect, plus the new photo reveal.
+        // And yes, we keep the classic "no button dance" alive forever.
+        console.log("💖 Valentine proposal ready — No button moves & shows romantic photo each click with smooth animation!");
+    </script>
+</body>
+
+</html>
